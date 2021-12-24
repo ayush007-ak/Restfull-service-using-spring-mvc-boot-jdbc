@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ctx="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:c="http://www.springframework.org/schema/c"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+	    http://www.springframework.org/schema/context/spring-context.xsd
+	    http://www.springframework.org/schema/aop		
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+	    <ctx:annotation-config></ctx:annotation-config>
+	    <ctx:component-scan base-package="com.yash.*"></ctx:component-scan>
+	    
+	   
+    <bean id="dataSource" class="com.yash.integrate.DataSource">
+    <property name="driver" value="${driver}"></property>
+    <property name="url" value="${url}"></property>
+    <property name="username" value="${username}"></property>
+    <property name="password" value="${password}"></property>
+    </bean>
+    
+     <bean id="quizDBQuery" class="com.yash.helper.QuizDBQuery">
+    <property name="selectDataQuery" value="select QID,Questions,Option1,Option2,Option3,Option4 from cssquestions"></property>
+    <property name="insertDataQuery" value="insert into cssquestions(QID,Questions,Option1,Option2,Option3,Option4) values(?,?,?,?)"></property>
+       <property name="selectQuizByIdQuery" value="select QID,Questions,Option1,Option2,Option3,Option4 from cssquestions where QID=?"></property>
+    </bean>
+ 
+    <bean id="propertyConfigurerDB" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="locations">
+    <list>
+    <value>classpath:db.properties</value>
+    </list>
+    </property>
+    </bean>
+    
+    
+    
+    </beans>
+
+
+
+	
